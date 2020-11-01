@@ -37,14 +37,36 @@ print(songs)
 print(artists)
 print(len(songs), len(artists))
 #TODO 
-# 1. Login part to Youtube Music (do not actually login)
-# 2. Create the playlist
-# 3. structure the searching part
+# 1. Login part to Youtube Music (do not actually login) - search python selenium secured login in youtube
+driver.get("https://accounts.google.com/signin/v2/identifier?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Dko%26next%3Dhttps%253A%252F%252Fwww.youtube.com%252Fpremium&hl=ko&ec=65620&flowName=GlifWebSignIn&flowEntry=ServiceLogin")
+time.sleep(3)
 
-#Youtube Music
-# driver.get("https://music.youtube.com/")
-# search = driver.find_element_by_xpath("/html/body/ytmusic-app/ytmusic-app-layout/ytmusic-nav-bar/div[2]/ytmusic-search-box/div/div[1]/span")
-# search.click()
+passw=open('password.txt',"r",encoding="utf-8")   
+password=str(passw.read())
+user=open('username.txt',"r",encoding="utf-8")   
+username=str(user.read())
+
+email = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div/div[1]/div/div[1]/input")
+email.send_keys(username)
+nextB = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[1]/div/div/button/div[2]").click()
+time.sleep(3)
+passwordBar = driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div[1]/div/div/div/div/div[1]/div/div[1]/input")
+passwordBar.send_keys(password)
+driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[1]/div/div/button/div[2]").click()
+time.sleep(2)
+# 2. Create the playlist
+driver.get("https://music.youtube.com/")
+driver.find_element_by_xpath("/html/body/ytmusic-app/ytmusic-app-layout/ytmusic-nav-bar/div[2]/ytmusic-search-box/div/div[1]/paper-icon-button[1]/iron-icon").click()
+searchBar = driver.find_element_by_xpath("/html/body/ytmusic-app/ytmusic-app-layout/ytmusic-nav-bar/div[2]/ytmusic-search-box/div/div[1]/input")
+for title in songs:
+    searchBar.send_keys(title)
+    searchBar.send_keys(Keys.RETURN)
+    driver.find_element_by_xpath("/html/body/ytmusic-app/ytmusic-app-layout/div[3]/ytmusic-search-page/ytmusic-section-list-renderer/div[2]/ytmusic-shelf-renderer[1]/div[2]/ytmusic-responsive-list-item-renderer/ytmusic-menu-renderer/paper-icon-button/iron-icon")
+    time.sleep(1)
+    driver.find_element_by_xpath("/html/body/ytmusic-app/ytmusic-popup-container/iron-dropdown/div/ytmusic-menu-popup-renderer/paper-listbox/ytmusic-menu-service-item-renderer[2]").click()
+# TODO TEST IT, Make it more structured!!!!
+
+
 time.sleep(1)
 
 driver.quit()
