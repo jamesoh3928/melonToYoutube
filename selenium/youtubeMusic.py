@@ -89,7 +89,8 @@ for title in songs:
     time.sleep(1)
     driver.find_element_by_xpath('/html/body/ytmusic-app/ytmusic-app-layout/div[3]/ytmusic-search-page/ytmusic-section-list-renderer/div[2]/ytmusic-shelf-renderer[1]/div[2]/ytmusic-responsive-list-item-renderer/ytmusic-menu-renderer/paper-icon-button/iron-icon').click()
     time.sleep(1)
-    driver.find_element_by_xpath('//*[@id="items"]/ytmusic-toggle-menu-service-item-renderer').click()
+    driver.find_elements_by_xpath("//*[contains(text(), '재생목록에 추가')]")[0].click()
+    driver.find_elements_by_xpath("//*[contains(text(), 'melon')]")[0].click()
     time.sleep(1)
 
 # TODO TEST IT, Make it more structured!!!! (Use Action Chain?)
