@@ -7,6 +7,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from getpass import getpass
 
 options = Options()
 options.add_argument("--incognito")
@@ -17,8 +18,15 @@ def hover(self):
     hov = ActionChains(wd).move_to_element(element)
     hov.perform()
 
+#TODO 
+# 1. Login part to Youtube Music (do not actually login) - search python selenium secured login in youtube
+username = input("Enter youtube username: ")
+password = getpass("Enter youtube password: ")
+link = "https://www.melon.com/mymusic/playlist/mymusicplaylistview_inform.htm?plylstSeq=481753852&memberKey=45064906&ref=copyurl&snsGate=Y"
+# link = input("Enter the melon playlist link: ")
+
 driver = webdriver.Chrome(options=options)
-driver.get("https://www.melon.com/mymusic/playlist/mymusicplaylistview_inform.htm?plylstSeq=481753852&memberKey=45064906&ref=copyurl&snsGate=Y")
+driver.get(link)
 songs = []
 artists = []
 nextXpath = '/html/body/div/div[2]/div/div/div[2]/div/div[2]/div/span/a['
@@ -55,18 +63,9 @@ print(len(songs), len(artists))
 for i in range(len(songs)):
     print(songs[i], "     ", artists[i])
 
-#TODO 
-# 1. Login part to Youtube Music (do not actually login) - search python selenium secured login in youtube
-passw = open('password.txt',"r",encoding="utf-8")   
-password = passw.readline()
-passw.close()
-user = open('username.txt',"r",encoding="utf-8")   
-username = user.readline()
-user.close()
-print("username: ", username)
 
-
-driver.get("https://stackoverflow.com/users/signup?ssrc=head&returnurl=%2fusers%2fstory%2fcurrent")
+stackSignInPage = "https://stackoverflow.com/users/signup?ssrc=head&returnurl=%2fusers%2fstory%2fcurrent"
+driver.get(stackSignInPage)
 
 try:
     WebDriverWait(driver, 10).until(
@@ -121,6 +120,10 @@ for i in range(len(songs)):
         print(e)
         continue
 
-# TODO TEST IT, Make it more structured!!!! (Use Action Chain?)
-
 driver.quit()
+
+
+# TODO 
+# 1. Make it more structured!!!! (Use Action Chain?)
+# 2. Let user enter username and password
+# 3. Maybe expand to more streaming service?
