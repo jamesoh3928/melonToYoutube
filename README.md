@@ -1,4 +1,4 @@
-# melonToYoutube
+# Music Shift
 
 This project lets you automatically add your music list from Melon streaming service to Youtube music.
 
